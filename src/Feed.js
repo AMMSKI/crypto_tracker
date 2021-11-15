@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import CoinCard from './Components/CoinCard';
+import { apikey } from './Components/apikey'
 
 let options = {
   method: 'GET',
@@ -14,7 +15,7 @@ let options = {
   },
   headers: {
     'x-rapidapi-host': 'investing-cryptocurrency-markets.p.rapidapi.com',
-    'x-rapidapi-key': 'e02ae8cd48msh0632d73db91de3bp1ec3fbjsnd32acd26c879'
+    'x-rapidapi-key': apikey
   }
 };
 
@@ -39,7 +40,7 @@ const Feed = () => {
   const renderCoinCard = () => {
       return data.crypto_data.map((c)=> <CoinCard coin={c} />)
   }
-  
+
   return (
     <div>
       <h1>Feed</h1>
