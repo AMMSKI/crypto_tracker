@@ -6,8 +6,11 @@ const ShowCoin = () => {
   const params = useParams()
   const [coin, setCoin] = useState([])
   const [chart, setChart] = useState('')
+  const [loading, setLoading] = useState(true)
+
   useEffect(()=>{
     getCoinData()
+    setLoading(true)
   },[])
   var options = {
     method: 'GET',
@@ -21,9 +24,10 @@ const ShowCoin = () => {
   
   const getCoinData = () => {
     axios.request(options).then(function (response) {
-      console.log(response.data);
-      setCoin(response.data.data[0].screen_data)
+      console.log(response.data.data[0].screen_data.pairs_data);
+      setCoin(response.data.data[0].screen_data.pairs_data)
       setChart(response.data.data[0].screen_data.pairs_attr[0].chart_link)
+      setLoading(false)
     }).catch(function (error) {
       console.error(error);
     });
@@ -35,19 +39,25 @@ const ShowCoin = () => {
         <div>
 
         </div>
-        <div>
-        <iframe src={chart} allowfullscreen></iframe>
+        <div style={{width:'100%', height:'75vh'}}>
+        <iframe style={{width:'100%', height:'100%'}} src={chart} allowfullscreen></iframe>
         </div>
       </div>
     )
   }
 
-  return (
-    <div>
-      ShowCoin
-      {chart && RenderCoin()}
-    </div>
-  )
+  if(loading){
+    return(
+      <div>Loading</div>
+    )
+  }else{
+    return (
+      <div>
+        ShowCoin
+        {chart && RenderCoin()}
+      </div>
+    )
+  }
 }
 
 export default ShowCoin
