@@ -1,14 +1,21 @@
 import React from "react";
 import { IoLogoBitcoin } from 'react-icons/io'
 import { BiDollar } from 'react-icons/bi'
+import ShowCoin from "../ShowCoin";
+import { Link } from "react-router-dom";
 
 const CoinCard = ({coin}) => {
+
+  const redirect = ({pair_id}) => {
+    
+  }
   return (
     <div key={coin.id} id="feed_coin_card">
       <h2>{coin.name}</h2>
       <p><BiDollar />{coin.inst_price_usd}</p>
       <p><IoLogoBitcoin />{coin.inst_price_btc}</p>
       <p>Today {coin.change_percent_1d}</p>
+      <Link to={`/show/${coin.pair_id}`} >More Info</Link>
     </div>
   )
 }

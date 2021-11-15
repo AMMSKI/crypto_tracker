@@ -19,7 +19,6 @@ let options = {
   }
 };
 
-console.log(process.env.REACT_APP_CRYPTO_KEY)
 
 const Feed = () => {
   const [data, setData] = useState([])
