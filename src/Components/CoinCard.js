@@ -4,7 +4,7 @@ import { BiDollar } from 'react-icons/bi'
 
 const CoinCard = ({coin}) => {
   return (
-    <div key={coin.id}>
+    <div key={coin.id} id="feed_coin_card">
       <h2>{coin.name}</h2>
       <p><BiDollar />{coin.inst_price_usd}</p>
       <p><IoLogoBitcoin />{coin.inst_price_btc}</p>
