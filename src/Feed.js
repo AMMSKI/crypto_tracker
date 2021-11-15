@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import CoinCard from './Components/CoinCard';
-import { apikey } from './Components/apikey'
+
 
 let options = {
   method: 'GET',
@@ -15,10 +15,11 @@ let options = {
   },
   headers: {
     'x-rapidapi-host': 'investing-cryptocurrency-markets.p.rapidapi.com',
-    'x-rapidapi-key': apikey
+    'x-rapidapi-key': process.env.REACT_APP_CRYPTO_KEY
   }
 };
 
+console.log(process.env.REACT_APP_CRYPTO_KEY)
 
 const Feed = () => {
   const [data, setData] = useState([])
