@@ -1,18 +1,17 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 
 const ShowCoin = () => {
   const params = useParams()
   const [coin, setCoin] = useState([])
-  const [chart, setChart] = useState('')
-  const [loading, setLoading] = useState(true)
-
+  const [loading, setLoading] = useState(false)
+  console.log(params)
   useEffect(()=>{
     getCoinData()
-    setLoading(true)
   },[])
-  var options = {
+
+  let options = {
     method: 'GET',
     url: 'https://investing-cryptocurrency-markets.p.rapidapi.com/coins/get-overview',
     params: {pair_ID: params.pair_ID, time_utc_offset: '28800', lang_ID: '1'},
@@ -26,21 +25,20 @@ const ShowCoin = () => {
     axios.request(options).then(function (response) {
       console.log(response.data.data[0].screen_data.pairs_data);
       setCoin(response.data.data[0].screen_data.pairs_data)
-      setChart(response.data.data[0].screen_data.pairs_attr[0].chart_link)
       setLoading(false)
     }).catch(function (error) {
       console.error(error);
+      setLoading(false)
     });
   }
+console.log(coin)
 
   const RenderCoin = () => {
     return (
       <div>
+        <h1></h1>
         <div>
-
-        </div>
-        <div style={{width:'100%', height:'75vh'}}>
-        <iframe style={{width:'100%', height:'100%'}} src={chart} allowfullscreen></iframe>
+          
         </div>
       </div>
     )
@@ -54,7 +52,7 @@ const ShowCoin = () => {
     return (
       <div>
         ShowCoin
-        {chart && RenderCoin()}
+        {RenderCoin}
       </div>
     )
   }
