@@ -1,7 +1,4 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import { useParams } from "react-router-dom";
 
 const ShowCoin = ({coin, showDetails, setShowDetails}) => {
   
@@ -10,7 +7,7 @@ const ShowCoin = ({coin, showDetails, setShowDetails}) => {
   useEffect(()=>{
   },[])
 
-  
+
 
   const RenderCoin = () => {
     return (
@@ -18,6 +15,7 @@ const ShowCoin = ({coin, showDetails, setShowDetails}) => {
         <button onClick={()=>setShowDetails(!showDetails)}>Back</button>
         <h1>{coin.name}</h1>
         <div>
+          <iframe src={`https://coinmarketcap.com/currencies/${coin.name}/?period=7d`} />
         </div>
       </div>
     )
@@ -39,4 +37,3 @@ const ShowCoin = ({coin, showDetails, setShowDetails}) => {
 
 
 export default ShowCoin
-
