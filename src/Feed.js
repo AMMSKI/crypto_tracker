@@ -1,6 +1,11 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import CoinCard from './Components/CoinCard';
+import { connect } from 'react-redux';
+import { IoLogoBitcoin } from 'react-icons/io'
+import { BiDollar } from 'react-icons/bi'
+import { Link } from "react-router-dom";
+import ShowCoin from './ShowCoin';
+
 
 
 
@@ -26,10 +31,12 @@ const setCallOptions = (sort, page)=>{
   }
 }
 
-const Feed = () => {
+const Feed = (props) => {
   const [data, setData] = useState([])
   const [options, setOptions] = useState(setCallOptions('MARKETCAP_DN', '1'))
   const [loading, setLoading] = useState(true)
+  const [showDetails, setShowDetails] = useState(false)
+  const [myCoin, setMyCoin] = useState([{}])
   
   useEffect(()=>{
     getData()
@@ -39,22 +46,41 @@ const Feed = () => {
 
   const getData = () => {
     axios.request(options).then(function (response) {
-      console.log(response.data)
-      console.log(response.data.data[0].screen_data);
       setData(response.data.data[0].screen_data)
       setLoading(false)
     }).catch(function (error) {
       console.error(error);
     });
   }
+  const showCoinDetails= (c) => {
+    setMyCoin(c)
+    setShowDetails(true)
+  }
 
   const renderCoinCard = () => {
-      return data.crypto_data.map((c)=> <CoinCard coin={c} />)
+      return data.crypto_data.map((c)=> {
+        return (
+          <div key={c.id} id="feed_coin_card">
+            <h2>{c.name}</h2>
+            <p><BiDollar />{c.inst_price_usd}</p>
+            <p><IoLogoBitcoin />{c.inst_price_btc}</p>
+            <p>Today {c.change_percent_1d}</p>
+            <button onClick={()=>showCoinDetails(c)}>More Info</button>
+          </div>
+        )
+      })
   }
 
     if(loading){
       return(
         <div>Loading</div>
+      )
+    }
+    if(showDetails){
+      return(
+        <div>
+          <ShowCoin coin={myCoin} setShowDetails={setShowDetails} showDetails={showDetails}/>
+        </div>
       )
     }else{
       return(
@@ -73,5 +99,4 @@ const Feed = () => {
       )
     }
 }
-
 export default Feed
