@@ -1,9 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { connect } from 'react-redux';
 import { IoLogoBitcoin } from 'react-icons/io'
 import { BiDollar } from 'react-icons/bi'
-import { Link } from "react-router-dom";
 import ShowCoin from './ShowCoin';
 
 
