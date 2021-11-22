@@ -6,12 +6,14 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 
 
 const ShowCoin = ({coin, showDetails, setShowDetails}) => {
+  const [loading, setLoading] = useState(false)
+  const [data, setData] = useState([])
   let options = {
     method: 'GET',
     url: 'https://investing-cryptocurrency-markets.p.rapidapi.com/coins/get-historical-data',
     params: {
       pair_ID: coin.pair_id,
-      date_from: moment(Date.now() - 7 * 24 * 3600 * 1000).format('DDMMYYYY'),
+      date_from: moment(Date.now() - 365 * 24 * 3600 * 1000).format('DDMMYYYY'),
       date_to: moment().format('DDMMYYYY'),
       lang_ID: 1,
       time_utc_offset: '28800',
@@ -24,9 +26,6 @@ const ShowCoin = ({coin, showDetails, setShowDetails}) => {
   };
 
   
-  const [loading, setLoading] = useState(false)
-  const [data, setData] = useState([])
-  // console.log(moment(1581868800).format("DD MMM YYYY hh:mm A"))
   
   useEffect(()=>{
     axios.request(options).then(function (response) {
@@ -34,9 +33,9 @@ const ShowCoin = ({coin, showDetails, setShowDetails}) => {
       let theData = myData.map((d) => {
         return {
           date: moment.unix(d.date).format("DD MMM YYYY"),
-          high: d.high,
-          low: d.low,
-          price: d.price
+          high: Number(d.high.split(",").join("")),
+          low: Number(d.low.split(",").join("")),
+          price: Number(d.price.split(",").join(""))
         }
       })
       const sortData  = (d) => {
@@ -56,6 +55,9 @@ const ShowCoin = ({coin, showDetails, setShowDetails}) => {
   },[])
 
   console.log(coin)
+  if(data){
+    console.log(data)
+  }
 
   const RenderCoin = () => {
     return (
@@ -76,12 +78,12 @@ const ShowCoin = ({coin, showDetails, setShowDetails}) => {
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="date" />
-          <YAxis />
-          <Tooltip />
+          <YAxis dataKey='price'/>
+          <Tooltip formatter={value => `$${value}`}/>
           <Legend />
-          <Line type="monotone" dataKey="price" stroke="#8884d8" />
-          <Line type="monotone" dataKey="high" stroke="#8884d8" />
-          <Line type="monotone" dataKey="low" stroke="#82ca9d" />
+          <Line type="monotone" dataKey="price" stroke="#004c66" />
+          <Line type="monotone" dataKey="high" stroke="#045803" />
+          <Line type="monotone" dataKey="low" stroke="#ff0000" />
         </LineChart>
         </div>
       </div>
