@@ -11,7 +11,7 @@ const ShowCoin = ({coin, showDetails, setShowDetails}) => {
     url: 'https://investing-cryptocurrency-markets.p.rapidapi.com/coins/get-historical-data',
     params: {
       pair_ID: coin.pair_id,
-      date_from: '06012021',
+      date_from: moment(Date.now() - 7 * 24 * 3600 * 1000).format('DDMMYYYY'),
       date_to: moment().format('DDMMYYYY'),
       lang_ID: 1,
       time_utc_offset: '28800',
@@ -33,13 +33,22 @@ const ShowCoin = ({coin, showDetails, setShowDetails}) => {
       let myData = response.data.data[0].screen_data.data
       let theData = myData.map((d) => {
         return {
-          date: moment(d.date).format("DD MMM YYYY"),
+          date: moment.unix(d.date).format("DD MMM YYYY"),
           high: d.high,
           low: d.low,
           price: d.price
         }
       })
-      setData(theData)
+      const sortData  = (d) => {
+        let sortedData = []
+        for(let i = 0; i < d.length; i++){
+          if(d[i].date < d[0].date){
+            sortedData.unshift(d[i])
+          }
+        }
+        return sortedData
+      }
+      setData(sortData(theData))
     }).catch(function (error) {
       console.error(error);
     });
@@ -55,8 +64,8 @@ const ShowCoin = ({coin, showDetails, setShowDetails}) => {
         <h1>{coin.name}</h1>
         <div>
         <LineChart
-          width={500}
-          height={300}
+          width={1000}
+          height={500}
           data={data}
           margin={{
             top: 5,
@@ -70,9 +79,9 @@ const ShowCoin = ({coin, showDetails, setShowDetails}) => {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Line type="monotone" dataKey="price" stroke="#8884d8" strokeDasharray="5 5" />
-          <Line type="monotone" dataKey="high" stroke="#8884d8" strokeDasharray="5 5" />
-          <Line type="monotone" dataKey="low" stroke="#82ca9d" strokeDasharray="3 4 5 2" />
+          <Line type="monotone" dataKey="price" stroke="#8884d8" />
+          <Line type="monotone" dataKey="high" stroke="#8884d8" />
+          <Line type="monotone" dataKey="low" stroke="#82ca9d" />
         </LineChart>
         </div>
       </div>
