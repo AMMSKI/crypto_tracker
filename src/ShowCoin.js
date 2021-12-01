@@ -8,12 +8,47 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 const ShowCoin = ({coin, showDetails, setShowDetails}) => {
   const [loading, setLoading] = useState(false)
   const [data, setData] = useState([])
-  let options = {
+  const [options, setOptions] = useState({})
+
+
+  let yearOptions = {
     method: 'GET',
     url: 'https://investing-cryptocurrency-markets.p.rapidapi.com/coins/get-historical-data',
     params: {
       pair_ID: coin.pair_id,
       date_from: moment(Date.now() - 365 * 24 * 3600 * 1000).format('DDMMYYYY'),
+      date_to: moment().format('DDMMYYYY'),
+      lang_ID: 1,
+      time_utc_offset: '28800',
+      interval: 'day'
+    },
+    headers: {
+      'x-rapidapi-host': 'investing-cryptocurrency-markets.p.rapidapi.com',
+      'x-rapidapi-key': 'e02ae8cd48msh0632d73db91de3bp1ec3fbjsnd32acd26c879'
+    }
+  };
+  let weekOptions = {
+    method: 'GET',
+    url: 'https://investing-cryptocurrency-markets.p.rapidapi.com/coins/get-historical-data',
+    params: {
+      pair_ID: coin.pair_id,
+      date_from: moment(Date.now() - 7 * 24 * 3600 * 1000).format('DDMMYYYY'),
+      date_to: moment().format('DDMMYYYY'),
+      lang_ID: 1,
+      time_utc_offset: '28800',
+      interval: 'day'
+    },
+    headers: {
+      'x-rapidapi-host': 'investing-cryptocurrency-markets.p.rapidapi.com',
+      'x-rapidapi-key': 'e02ae8cd48msh0632d73db91de3bp1ec3fbjsnd32acd26c879'
+    }
+  };
+  let monthOptions = {
+    method: 'GET',
+    url: 'https://investing-cryptocurrency-markets.p.rapidapi.com/coins/get-historical-data',
+    params: {
+      pair_ID: coin.pair_id,
+      date_from: moment(Date.now() - 30 * 24 * 3600 * 1000).format('DDMMYYYY'),
       date_to: moment().format('DDMMYYYY'),
       lang_ID: 1,
       time_utc_offset: '28800',
@@ -52,12 +87,12 @@ const ShowCoin = ({coin, showDetails, setShowDetails}) => {
       console.error(error);
     });
 
-  },[])
+  },[options])
 
-  console.log(coin)
-  if(data){
-    console.log(data)
-  }
+  // console.log(coin)
+  // if(data){
+  //   console.log(data)
+  // }
 
   const RenderCoin = () => {
     return (
@@ -98,6 +133,9 @@ const ShowCoin = ({coin, showDetails, setShowDetails}) => {
     return (
       <div>
         ShowCoin
+        <p onClick={()=>setOptions(yearOptions)}>Year</p>
+        <p onClick={()=>setOptions(monthOptions)}>Month</p>
+        <p onClick={()=>setOptions(weekOptions)}>Week</p>
         {data && RenderCoin()}
       </div>
     )
