@@ -7,7 +7,6 @@ import Feed from './Feed';
 function App() {
   return (
     <div className="App">
-      <NavBar />
       <Routes>
         <Fragment>
         <Route path='/' element={<Feed/>} />
