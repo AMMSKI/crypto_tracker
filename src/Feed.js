@@ -3,9 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { IoLogoBitcoin } from 'react-icons/io'
 import { BiDollar } from 'react-icons/bi'
 import ShowCoin from './ShowCoin';
-
-
-
+import './StyleSheets/feed.css'
 
 
 // Sort options: PERC1D_DN (Chg 24h) | PERC7D_DN (Chg 7D) | MARKETCAP_DN (Market Cap) | VOLUME24_DN (Vol 24h) | TOTAL_VOLUME_DN (Total vol)
@@ -58,7 +56,7 @@ const Feed = (props) => {
   const renderCoinCard = () => {
       return data.crypto_data.map((c)=> {
         return (
-          <div key={c.id} id="feed_coin_card">
+          <div key={c.id} className="feed_coin_card">
             <h2>{c.name}</h2>
             <p><BiDollar />{c.inst_price_usd}</p>
             <p><IoLogoBitcoin />{c.inst_price_btc}</p>
@@ -82,19 +80,19 @@ const Feed = (props) => {
       )
     }else{
       return(
-        <div>
+        <div className='feed_container'>
           <h1>Coins</h1>
           <div>
             <h3 onClick={()=>setOptions(setCallOptions('MARKETCAP_DN', '1'))}>Market Cap</h3>
             <h3 onClick={()=>setOptions(setCallOptions('PERC1D_DN', '1'))}>Top Performers</h3>
             <h3 onClick={()=>setOptions(setCallOptions('VOLUME24_DN', '1'))}>Volume</h3>
           </div>
-          <div id="feed_coin_container">
+          <div className="feed_coin_container">
           {data.crypto_data && renderCoinCard()}
           </div>
         </div>
-
       )
     }
 }
+
 export default Feed

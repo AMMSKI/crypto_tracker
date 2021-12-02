@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAQA,AAAA,oBAAoB,CAAA;EAClB,OAAO,EAAE,IAAI;EACb,cAAc,EAAE,GAAG;EACnB,SAAS,EAAE,IAAI;EACf,eAAe,EAAE,YAAY;EAC7B,WAAW,EAAE,OAAO;CACrB;;AAED,AAAA,eAAe,CAAC;EACd,MAAM,EAAE,eAAe;EACvB,KAAK,EAAE,GAAG;EACV,MAAM,EAAE,QAAQ;CACjB",
+    "sources": [
+        "feed.scss"
+    ],
+    "names": [],
+    "file": "feed.css"
+}

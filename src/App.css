@@ -2,17 +2,5 @@
   text-align: center;
 }
 
-#feed_coin_container{
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: stretch;
-}
 
-#feed_coin_card {
-  border: 1px solid black;
-  width: 25%;
-  margin: 10px 0px;
-}
 

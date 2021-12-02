@@ -8,7 +8,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 const ShowCoin = ({coin, showDetails, setShowDetails}) => {
   const [loading, setLoading] = useState(false)
   const [data, setData] = useState([])
-  const [options, setOptions] = useState({})
+  const [options, setOptions] = useState(null)
 
 
   let yearOptions = {
@@ -63,6 +63,7 @@ const ShowCoin = ({coin, showDetails, setShowDetails}) => {
   
   
   useEffect(()=>{
+    if(options){
     axios.request(options).then(function (response) {
       let myData = response.data.data[0].screen_data.data
       let theData = myData.map((d) => {
@@ -83,16 +84,13 @@ const ShowCoin = ({coin, showDetails, setShowDetails}) => {
         return sortedData
       }
       setData(sortData(theData))
+      // setLoading(false)
     }).catch(function (error) {
       console.error(error);
-    });
+    });}
 
   },[options])
 
-  // console.log(coin)
-  // if(data){
-  //   console.log(data)
-  // }
 
   const RenderCoin = () => {
     return (
@@ -100,6 +98,7 @@ const ShowCoin = ({coin, showDetails, setShowDetails}) => {
         <button onClick={()=>setShowDetails(!showDetails)}>Back</button>
         <h1>{coin.name}</h1>
         <div>
+          <ResponsiveContainer>
         <LineChart
           width={1000}
           height={500}
@@ -120,6 +119,7 @@ const ShowCoin = ({coin, showDetails, setShowDetails}) => {
           <Line type="monotone" dataKey="high" stroke="#045803" />
           <Line type="monotone" dataKey="low" stroke="#ff0000" />
         </LineChart>
+        </ResponsiveContainer>
         </div>
       </div>
     )
@@ -132,11 +132,11 @@ const ShowCoin = ({coin, showDetails, setShowDetails}) => {
   }else{
     return (
       <div>
-        ShowCoin
-        <p onClick={()=>setOptions(yearOptions)}>Year</p>
-        <p onClick={()=>setOptions(monthOptions)}>Month</p>
-        <p onClick={()=>setOptions(weekOptions)}>Week</p>
-        {data && RenderCoin()}
+        Click to View Chart
+        <h3 onClick={()=>setOptions(yearOptions)}>Year</h3>
+        <h3 onClick={()=>setOptions(monthOptions)}>Month</h3>
+        <h3 onClick={()=>setOptions(weekOptions)}>Week</h3>
+        {options && data && RenderCoin()}
       </div>
     )
   }
