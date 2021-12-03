@@ -82,12 +82,10 @@ const ShowCoin = ({coin, showDetails, setShowDetails}) => {
         return sortedData
       }
       setData(sortData(theData))
-      console.log(sortData(theData))
-      console.log(theData)
     }).catch(function (error) {
       console.error(error);
     });
-
+    return 
   },[options])
 
   const RenderCoin = () => {
