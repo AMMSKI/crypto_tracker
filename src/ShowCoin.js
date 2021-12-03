@@ -10,8 +10,6 @@ const ShowCoin = ({coin, showDetails, setShowDetails}) => {
   const [data, setData] = useState([])
   const [options, setOptions] = useState(null)
 
-  console.log(options)
-
   let yearOptions = {
     method: 'GET',
     url: 'https://investing-cryptocurrency-markets.p.rapidapi.com/coins/get-historical-data',
@@ -77,19 +75,20 @@ const ShowCoin = ({coin, showDetails, setShowDetails}) => {
       const sortData  = (d) => {
         let sortedData = []
         for(let i = 0; i < d.length; i++){
-          if(d[i].date < d[0].date){
+          if(moment(d[i].date) < moment(d[0].date)){
             sortedData.unshift(d[i])
           }
         }
         return sortedData
       }
       setData(sortData(theData))
+      console.log(sortData(theData))
+      console.log(theData)
     }).catch(function (error) {
       console.error(error);
     });
 
   },[options])
-
 
   const RenderCoin = () => {
     return (
