@@ -1,7 +1,7 @@
 import axios from "axios";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 
 
@@ -62,6 +62,9 @@ const ShowCoin = ({coin, showDetails, setShowDetails}) => {
   
   
   useEffect(()=>{
+    if(!options){
+      setOptions(yearOptions)
+    }
     axios.request(options).then(function (response) {
       let myData = response.data.data[0].screen_data.data
       let theData = myData.map((d) => {
@@ -110,9 +113,9 @@ const ShowCoin = ({coin, showDetails, setShowDetails}) => {
           <YAxis dataKey='price'/>
           <Tooltip formatter={value => `$${value}`}/>
           <Legend />
-          <Line type="monotone" dataKey="price" stroke="#004c66" />
-          <Line type="monotone" dataKey="high" stroke="#045803" />
-          <Line type="monotone" dataKey="low" stroke="#ff0000" />
+          <Line type="monotone" dataKey="price" stroke="#29d329" />
+          <Line type="monotone" dataKey="high" stroke="#29d329" />
+          <Line type="monotone" dataKey="low" stroke="#29d329" />
         </LineChart>
         </div>
       </div>

@@ -4,7 +4,14 @@
 //   display: flex;
 //   flex-direction: column;
 // }
+*{
+  color: #29d329;
+  font-family: 'Zen Kaku Gothic Antique', sans-serif;
+}
 
+h1{
+  margin: 0;
+}
 
 .feed_coin_container{
   display: flex;
@@ -15,7 +22,15 @@
 }
 
 .feed_coin_card {
-  border: 1px solid black;
+  border: 1px solid #29d329;
   width: 25%;
   margin: 10px 0px;
+}
+
+.feed_nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  background-color: purple;
+  color: green;
 }

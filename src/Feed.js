@@ -67,11 +67,11 @@ const Feed = (props) => {
       })
   }
 
-    if(loading){
-      return(
-        <div>Loading</div>
-      )
-    }
+    // if(loading){
+    //   return(
+    //     <div>Loading</div>
+    //   )
+    // }
     if(showDetails){
       return(
         <div>
@@ -82,14 +82,16 @@ const Feed = (props) => {
       return(
         <div className='feed_container'>
           <h1>Coins</h1>
-          <div>
+          <div className='feed_nav'>
             <h3 onClick={()=>setOptions(setCallOptions('MARKETCAP_DN', '1'))}>Market Cap</h3>
             <h3 onClick={()=>setOptions(setCallOptions('PERC1D_DN', '1'))}>Top Performers</h3>
             <h3 onClick={()=>setOptions(setCallOptions('VOLUME24_DN', '1'))}>Volume</h3>
           </div>
-          <div className="feed_coin_container">
-          {data.crypto_data && renderCoinCard()}
-          </div>
+          {loading ? <div>Loading</div> :
+            <div className="feed_coin_container">
+            {data.crypto_data && renderCoinCard()}
+            </div>
+          }
         </div>
       )
     }
