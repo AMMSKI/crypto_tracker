@@ -61,17 +61,13 @@ const Feed = (props) => {
             <p><BiDollar />{c.inst_price_usd}</p>
             <p><IoLogoBitcoin />{c.inst_price_btc}</p>
             <p>Today {c.change_percent_1d}</p>
-            <button onClick={()=>showCoinDetails(c)}>More Info</button>
+            <button onClick={()=>showCoinDetails(c)}>Chart!!</button>
           </div>
         )
       })
   }
 
-    // if(loading){
-    //   return(
-    //     <div>Loading</div>
-    //   )
-    // }
+
     if(showDetails){
       return(
         <div>
@@ -81,7 +77,6 @@ const Feed = (props) => {
     }else{
       return(
         <div className='feed_container'>
-          <h1>Coins</h1>
           <div className='feed_nav'>
             <h3 onClick={()=>setOptions(setCallOptions('MARKETCAP_DN', '1'))}>Market Cap</h3>
             <h3 onClick={()=>setOptions(setCallOptions('PERC1D_DN', '1'))}>Top Performers</h3>

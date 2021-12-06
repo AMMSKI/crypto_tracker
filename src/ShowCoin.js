@@ -96,7 +96,8 @@ const ShowCoin = ({coin, showDetails, setShowDetails}) => {
       <div>
         <button onClick={()=>setShowDetails(!showDetails)}>Back</button>
         <h1>{coin.name}</h1>
-        <div>
+        <div className='chart_container'>
+        <ResponsiveContainer width='80%' height={500}>
         <LineChart
           width={1000}
           height={500}
@@ -117,6 +118,7 @@ const ShowCoin = ({coin, showDetails, setShowDetails}) => {
           <Line type="monotone" dataKey="high" stroke="#29d329" />
           <Line type="monotone" dataKey="low" stroke="#29d329" />
         </LineChart>
+        </ResponsiveContainer>
         </div>
       </div>
     )
@@ -129,10 +131,11 @@ const ShowCoin = ({coin, showDetails, setShowDetails}) => {
   }else{
     return (
       <div>
-        Click to View Chart
+        <div className='feed_nav'>
         <h3 onClick={()=>setOptions(yearOptions)}>Year</h3>
         <h3 onClick={()=>setOptions(monthOptions)}>Month</h3>
         <h3 onClick={()=>setOptions(weekOptions)}>Week</h3>
+        </div>
         {data && RenderCoin()}
       </div>
     )
