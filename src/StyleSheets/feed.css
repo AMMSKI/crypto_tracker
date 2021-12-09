@@ -31,7 +31,12 @@ h1 {
 .feed_coin_card {
   border: 1px solid #29d329;
   width: 25%;
-  margin: 10px 0px;
+  margin: 10px;
+  padding: 10px;
+}
+
+.feed_coin_card h2 {
+  margin: 0;
 }
 
 .feed_nav {
@@ -44,7 +49,11 @@ h1 {
           flex-direction: row;
   -ms-flex-pack: distribute;
       justify-content: space-around;
-  background-color: grey;
+  background-color: black;
   color: green;
+}
+
+.feed_nav p {
+  width: 200px;
 }
 /*# sourceMappingURL=feed.css.map */

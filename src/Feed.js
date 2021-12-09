@@ -78,9 +78,9 @@ const Feed = (props) => {
       return(
         <div className='feed_container'>
           <div className='feed_nav'>
-            <h3 onClick={()=>setOptions(setCallOptions('MARKETCAP_DN', '1'))}>Market Cap</h3>
-            <h3 onClick={()=>setOptions(setCallOptions('PERC1D_DN', '1'))}>Top Performers</h3>
-            <h3 onClick={()=>setOptions(setCallOptions('VOLUME24_DN', '1'))}>Volume</h3>
+            <p onClick={()=>setOptions(setCallOptions('MARKETCAP_DN', '1'))}>Market Cap</p>
+            <p onClick={()=>setOptions(setCallOptions('PERC1D_DN', '1'))}>Top Performers</p>
+            <p onClick={()=>setOptions(setCallOptions('VOLUME24_DN', '1'))}>Volume</p>
           </div>
           {loading ? <div>Loading</div> :
             <div className="feed_coin_container">
