@@ -7,5 +7,6 @@
       -ms-flex-direction: column;
           flex-direction: column;
   height: 500px;
+  border: 2px green solid;
 }
 /*# sourceMappingURL=hero.css.map */
